@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="169px" height="101px" viewBox="0 0 169 101" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="memeng_logo" transform="translate(-2.000000, 0.000000)">
+            <g id="Group">
+                <text id="MemeNG" font-family="AvenirNext-Heavy, Avenir Next" font-size="36" font-weight="600">
+                    <tspan x="0.154" y="100" fill="#5FC9F3">Meme</tspan>
+                    <tspan x="116.938" y="100" fill="#1E549F">NG</tspan>
+                </text>
+                <circle id="Oval" fill="#1E549F" cx="86.5" cy="24.5" r="24.5"></circle>
+                <circle id="Oval-2" fill="#5FC9F3" cx="106.5" cy="12.5" r="11.5"></circle>
+                <circle id="Oval-3" fill="#2E79BA" cx="111" cy="23" r="6"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -9,6 +9,10 @@ router.get('/memes', (req, res) => {
 	res.send('Memes returned.');
 });
 
+router.get('/meme/:id/:top/:bottom', (req, res) => {
+	res.send('Found a meme for you.');
+});
+
 module.exports = router;
 
 /*

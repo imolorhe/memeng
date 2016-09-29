@@ -5,7 +5,9 @@
 'use strict';
 
 // Load the variables in .env to process.env
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
 // Start the app
 require('./app/app');
+
+console.log(process.env.FIREBASE_API_KEY);

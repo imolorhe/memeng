@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2016. samuelimolo4real@gmail.com
  */
+'use strict';
 
 let express = require('express');
 let cookieParser = require('cookie-parser');
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-	data = {
+	var data = {
 		b: 1,
 		s: 2
 	};

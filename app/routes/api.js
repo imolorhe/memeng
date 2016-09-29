@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2016. samuelimolo4real@gmail.com
  */
+'use strict';
 
 let express = require('express');
 let router = express.Router();

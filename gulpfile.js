@@ -18,12 +18,12 @@ function notifyMe(msg) {
 };
 
 gulp.task('sass', () => {
-	return gulp.src('scss/styles.scss')
+	return gulp.src('app/scss/styles.scss')
 		.pipe(sass()).on('error', sass.logError)
 		.pipe(gulp.dest('public/css'))
 		.pipe(notifyMe({message: 'SCSS compiled!'}));
 });
 
 gulp.task('watch', () => {
-	gulp.watch('scss/**/*.scss', ['sass']);
+	gulp.watch('app/scss/**/*.scss', ['sass']);
 });

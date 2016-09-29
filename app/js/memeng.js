@@ -93,8 +93,3 @@ MemeNG.encodeMemeText = function (text) {
 
 */
 
-/*
-* API endpoints
-*
-* /api/meme/<id>/<top>/<bottom>
-* */

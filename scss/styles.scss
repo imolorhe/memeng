@@ -1,3 +1,56 @@
-html,body{
-	font-family: 'Helvetica Neue', sans-serif;
+@import "settings";
+@import "normalize";
+@import "mq";
+@import "global";
+
+.header{
+	padding: 20px 0;
+}
+.logo-wrapper{
+	margin: 0 auto;
+	text-align: center;
+	max-width: 150px;
+}
+
+
+$meme-list-columns: 3;
+.meme-list{
+	@include clearfix;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	li{
+		float: left;
+		width: 100% / $meme-list-columns;
+		padding: 0 10px;
+	}
+}
+.meme-item{
+	position: relative;
+	display: block;
+	background: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+	border-radius: 5px;
+	border: 2px solid transparent;
+	overflow: hidden;
+	color: $brand-black;
+	text-decoration: none;
+	transform: scale(1) translateZ(0);
+	transition: all .3s;
+	//padding: 20px;
+	&:hover{
+		transform: scale(1.01) translateZ(0);
+		border-color: $brand-blue-sky;
+	}
+}
+.meme-item-title{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	padding: 10px;
+	//background: rgba($brand-blue-sky, .8);
+	color: white;
+	//font-weight: bold;
 }

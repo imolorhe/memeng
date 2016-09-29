@@ -1,0 +1,14 @@
+html,body{
+	font-family: 'Helvetica Neue', sans-serif;
+	margin: 0;
+	color: $brand-black;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}

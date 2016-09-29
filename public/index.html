@@ -6,12 +6,40 @@
 				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>MemeNG</title>
+	<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 	<div class="wrapper">
-		<div class="logo-wrapper">
-			<img src="img/memeng_logo.svg" alt="">
+		<div class="header">
+			<div class="logo-wrapper">
+				<a href="/">
+					<img src="/img/memeng_logo.svg" alt="">
+				</a>
+			</div>
+		</div>
+		<div class="meme-list-wrapper">
+			<ul class="meme-list">
+				<li>
+					<a href="/api/meme/12" class="meme-item">
+						<div class="meme-item-image-wrapper">
+							<img src="/img/memes/packing-chairs.jpg" alt="">
+							<div class="meme-item-title">Yada!</div>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="/api/meme/23" class="meme-item">
+						Yada!
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
+
+	<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+	<script src="/js/memeng-logger.js"></script>
+	<script src="/js/memeng.js"></script>
+	<script src="/js/memeng-router.js"></script>
+	<script src="/js/scripts.js"></script>
 </body>
 </html>

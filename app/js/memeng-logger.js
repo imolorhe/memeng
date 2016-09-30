@@ -11,7 +11,7 @@ var MemeNGLogger = function (opts) {
 	this.opts = Object.assign({}, defaults, opts);
 
 	// TODO Figure out a better way probably in the prototype
-	this.log = (this.opts.logLevel >= MemeNGLogger.LOG_LEVELS.ALL) ? console.log.bind(window.console, '::') : function () { console.log('Log disabled.')};
+	this.log = (this.opts.logLevel >= MemeNGLogger.LOG_LEVELS.ALL) ? console.log.bind(console, '::') : function () { console.log('Log disabled.')};
 };
 
 MemeNGLogger.LOG_LEVELS = {
@@ -47,3 +47,5 @@ MemeNGLogger.getErrorObject = function () {
 		return err;
 	}
 };
+
+module.exports = MemeNGLogger;

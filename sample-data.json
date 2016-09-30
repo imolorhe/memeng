@@ -1,5 +1,12 @@
 {
-	"memes": [
-		{"id": "packing-chairs"}
-	]
+	"packing-chairs": {
+		"name": "Packing Chairs",
+		"description": "People packing chairs",
+		"imageName": "packing-chairs.jpg",
+		"tags": [
+			"chairs",
+			"packing",
+			"people"
+		]
+	}
 }

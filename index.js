@@ -9,5 +9,3 @@ require('dotenv').config({silent: true});
 
 // Start the app
 require('./app/app');
-
-console.log(process.env.FIREBASE_API_KEY);

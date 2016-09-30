@@ -4,6 +4,7 @@
   "description": "Meme generator",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
@@ -18,9 +19,9 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-	"engines": {
-		"node": "6.1.0"
-	},
+  "engines": {
+    "node": "6.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/imolorhe/memeng.git"

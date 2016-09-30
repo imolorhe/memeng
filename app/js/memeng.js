@@ -2,8 +2,16 @@
  * Copyright (c) 2016. samuelimolo4real@gmail.com
  */
 
+'use strict';
+
+let MemeNGLogger = require('./memeng-logger');
+
 /**
- * @return {boolean}
+ *
+ * @param firebase
+ * @param config
+ * @returns {*}
+ * @constructor
  */
 var MemeNG = function (firebase, config) {
 	this.logger = new MemeNGLogger();
@@ -17,6 +25,8 @@ var MemeNG = function (firebase, config) {
 	this.firebase = firebase;
 	this.database = firebase.database();
 	this.auth = firebase.auth();
+
+	return this;
 };
 
 MemeNG.prototype.getMemes = function () {
@@ -61,6 +71,13 @@ MemeNG.prototype.memeExists = function (id) {
 	return true;
 };
 
+MemeNG.prototype.authenticate = function (email, password) {
+	var that = this;
+	this.auth.signInWithEmailAndPassword(email, password).catch(function (error) {
+		that.logger.log(error.message);
+	});
+};
+
 /**
  * encodes the text using the prescribed format from memegen.link
  * @param text
@@ -93,3 +110,4 @@ MemeNG.encodeMemeText = function (text) {
 
 */
 
+module.exports = MemeNG;

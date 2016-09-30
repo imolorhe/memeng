@@ -26,8 +26,9 @@ app.get('/api', (req, res) => {
 	res.send(data);
 });
 
-let server = app.listen(8081, () => {
-	console.log('Server running...');
+let port = process.env.PORT || 8081;
+let server = app.listen(port, () => {
+	console.log('Server running...', port);
 });
 
 module.exports = server;

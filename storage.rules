@@ -1,0 +1,8 @@
+service firebase.storage {
+  match /b/memeng-66697.appspot.com/o {
+    match /{allPaths=**} {
+      allow read;
+      allow write: if request.auth.uid == "WHYmzh0xdzdje7gRcE73uvsCjqO2"
+    }
+  }
+}

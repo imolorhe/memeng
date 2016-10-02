@@ -4,6 +4,8 @@
 
 'use strict';
 
+let path = require('path');
+
 let MemeNGLogger = require('./memeng-logger');
 
 /**
@@ -21,16 +23,46 @@ var MemeNG = function (firebase, config) {
 		return false;
 	}
 	firebase.initializeApp(config);
-	this.logger.log('%cMemeNG initialised.', 'color: green;');
+	// this.logger.log('%cMemeNG initialised.', 'color: green;');
 	this.firebase = firebase;
 	this.database = firebase.database();
 	this.auth = firebase.auth();
+
+	if(firebase.storage){
+		this.storage = firebase.storage();
+	}
+	else{
+		var gcloud = require('gcloud')({
+			projectId: config.projectId,
+			keyFilename: config.keyJsonFilePath
+		});
+
+		var gcs = gcloud.storage();
+
+		// Save a reference to the bucket object
+		this.bucket = gcs.bucket(config.storageBucket);
+		this.bucket.exists(function (err, exists) {
+			// console.log(err, exists);
+			if(err){
+				console.log('Something went wrong.', err.message);
+			}
+		});
+	}
+
+	// console.log('Storage bucket: ');
+	// console.log(this.storage);
 
 	return this;
 };
 
 MemeNG.prototype.getMemes = function () {
 	return this.database.ref('/memes').once('value');
+};
+
+MemeNG.prototype.getMemeDetails = function (id) {
+	return this.database.ref('/memes/' + id).once('value').then(function (snapshot) {
+		return snapshot.val();
+	});
 };
 
 /**
@@ -45,19 +77,60 @@ MemeNG.prototype.createMeme = function (opts) {
 	var topText = opts.top;
 	var bottomText = opts.bottom;
 
-	// If the meme doesn't exist, don't continue
-	if(!this.memeExists(id))return false;
+	var that = this;
 
-	var memeBaseURL = '';
-	var memeImageName = id;
-	var url = 'https://memegen.link/custom/<top>/<bottom>.jpg?alt=<memeBaseURL>/<memeImageName>.jpg';
+	return new Promise(function(resolve, reject){
+		// If the meme doesn't exist, don't continue
+		// if(!this.memeExists(id))return false;
+		that.getMemeDetails(id).then(function(data) {
+			// console.log(data);
 
-	// var url = 'https://memegen.link/api/templates/' + id + '/' + MemeNG.encodeMemeText(topText) + '/' + MemeNG.encodeMemeText(bottomText) + '';
-	return url
-		.replace('<top>', MemeNG.encodeMemeText(topText))
-		.replace('<bottom>', MemeNG.encodeMemeText(bottomText))
-		.replace('<memeBaseURL>', encodeURIComponent())
-		.replace('<memeImageName>', encodeURIComponent());
+			if(!data){
+				console.log('Meme not found.');
+				reject(Error('Meme not found.'));
+				return false;
+			}
+			var memeBaseURL = '';
+			var memeImageName = data.imageName;
+			// console.log('ref', that.storage.storage);
+			var memeImageRef = that.bucket.file('memes/' + memeImageName);
+			memeImageRef.exists(function(err, exists){
+				if(err){
+					console.log(err.message);
+					reject(err);
+					return false;
+				}
+				if(!exists){
+					console.log('File does not exist');
+					reject(Error('File does not exist.'));
+					return false;
+				}
+
+				// Get a valid URL for the image
+				memeImageRef.getSignedUrl({
+					action: 'read',
+					// Make the link available for one day (24 hours * 60 minutes * 60 seconds)
+					expires: +(new Date()) + (60 * 60 * 24)
+				}, function(err, imageURL){
+					if(err){
+						console.log(err.message);
+						reject(err);
+						return false;
+					}
+
+					var url = 'https://memegen.link/custom/<top>/<bottom>.jpg?alt=' + encodeURIComponent(imageURL);
+
+					// var url = 'https://memegen.link/api/templates/' + id + '/' + MemeNG.encodeMemeText(topText) + '/' + MemeNG.encodeMemeText(bottomText) + '';
+					url = url
+						.replace('<top>', MemeNG.encodeMemeText(topText))
+						.replace('<bottom>', MemeNG.encodeMemeText(bottomText));
+
+					resolve(url);
+				});
+			});
+		});
+	});
+
 };
 
 /**

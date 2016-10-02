@@ -28,7 +28,7 @@ app.get('/api', (req, res) => {
 
 let port = process.env.PORT || 8081;
 let server = app.listen(port, () => {
-	console.log('Server running...', port);
+	console.log('MemeNG server is now running.', port);
 });
 
 module.exports = server;

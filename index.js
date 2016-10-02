@@ -7,5 +7,7 @@
 // Load the variables in .env to process.env
 require('dotenv').config({silent: true});
 
+process.env['PROJECT_ROOT'] = __dirname;
+
 // Start the app
 require('./app/app');

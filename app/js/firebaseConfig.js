@@ -9,7 +9,8 @@ let config = {
 	databaseURL: process.env.FIREBASE_DATABASE_URL,
 	storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 	messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-	keyJsonFilePath: process.env.FIREBASE_SERVICE_ACCOUNT_JSON_PATH
+	keyJsonFilePath: process.env.FIREBASE_SERVICE_ACCOUNT_JSON_PATH,
+	keyJsonContent: process.env.FIREBASE_SERVICE_ACCOUNT_JSON_CONTENT || require(process.env.FIREBASE_SERVICE_ACCOUNT_JSON_PATH)
 };
 
 module.exports = config;

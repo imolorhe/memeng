@@ -27,14 +27,14 @@ var MemeNG = function (firebase, config) {
 	this.firebase = firebase;
 	this.database = firebase.database();
 	this.auth = firebase.auth();
-
 	if(firebase.storage){
 		this.storage = firebase.storage();
 	}
 	else{
 		var gcloud = require('gcloud')({
 			projectId: config.projectId,
-			keyFilename: config.keyJsonFilePath
+			// keyFilename: config.keyJsonFilePath
+			credentials: config.keyJsonContent
 		});
 
 		var gcs = gcloud.storage();

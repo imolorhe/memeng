@@ -5,14 +5,20 @@
 
 let express = require('express');
 let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
 
 let app = express();
 
 let api = require('./routes/api');
+let bot = require('./routes/bot');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
 app.use('/api', api);
+app.use('/bot', bot);
 
 app.get('/', (req, res) => {
 	res.send('Hello.');

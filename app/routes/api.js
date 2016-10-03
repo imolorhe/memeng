@@ -3,18 +3,12 @@
  */
 'use strict';
 
-let https = require('https');
-let fs = require('fs');
-let crypto = require('crypto');
-let sh = require('shorthash');
-
 let express = require('express');
 let router = express.Router();
-let firebase = require('firebase');
-let firebaseConfig = require('../js/firebaseConfig');
-let MemeNG = new require('../js/memeng');
+let config = require('../js/config');
+let MemeNG = require('../js/memeng');
 
-let memeng = new MemeNG(firebase, firebaseConfig);
+let memeng = new MemeNG(config);
 
 router.get('/memes', (req, res) => {
 	let data = null;
@@ -26,18 +20,11 @@ router.get('/memes', (req, res) => {
 });
 
 router.get('/meme/:id/:top/:bottom', (req, res) => {
-	memeng.createMeme({id: req.params.id, top: req.params.top, bottom: req.params.bottom}).then(function(url){
+	memeng.createMeme({id: req.params.id, top: req.params.top, bottom: req.params.bottom}).then(function(parameters){
+		var url = parameters.url;
 
-		// let memeHash = crypto.createHash('md5').update(url).digest("hex");
-		let memeHash = sh.unique(url);
-		let tmpFileURL = process.env.PROJECT_ROOT + '/tmp/' + memeHash + '.jpg';
-		// console.log(memeHash);
-		// TODO: Check if file has already been created instead of creating multiple files.
-		let file = fs.createWriteStream(tmpFileURL);
-		let request = https.get(url, function(response) {
-			response.pipe(file).on('close', function(){
-				res.sendFile(tmpFileURL);
-			});
+		MemeNG.downloadFile(url).then((result) => {
+			res.sendFile(result.fileURL);
 		});
 		// res.send('<img src="' + url + '"/>');
 	}).catch(function(err){

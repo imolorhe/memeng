@@ -5,24 +5,38 @@
 'use strict';
 
 let path = require('path');
+let https = require('https');
+let fs = require('fs');
+let crypto = require('crypto');
+let sh = require('shorthash');
+
+let firebase = require('./firebase');
+let GCloud = require('gcloud');
 
 let MemeNGLogger = require('./memeng-logger');
 
 /**
  *
- * @param firebase
  * @param config
  * @returns {*}
  * @constructor
  */
-var MemeNG = function (firebase, config) {
+var MemeNG = function (config) {
 	this.logger = new MemeNGLogger();
 
 	if(!firebase){
 		this.logger.error('Firebase app is not available.');
 		return false;
 	}
-	firebase.initializeApp(config);
+
+	// Check if firebase has been initialised, else initialise it.
+	try{
+		firebase.app();
+	}
+	catch(e){
+		firebase.initializeApp(config);
+	}
+
 	// this.logger.log('%cMemeNG initialised.', 'color: green;');
 	this.firebase = firebase;
 	this.database = firebase.database();
@@ -31,7 +45,7 @@ var MemeNG = function (firebase, config) {
 		this.storage = firebase.storage();
 	}
 	else{
-		var gcloud = require('gcloud')({
+		var gcloud = GCloud({
 			projectId: config.projectId,
 			// keyFilename: config.keyJsonFilePath
 			credentials: config.keyJsonContent
@@ -125,7 +139,11 @@ MemeNG.prototype.createMeme = function (opts) {
 						.replace('<top>', MemeNG.encodeMemeText(topText))
 						.replace('<bottom>', MemeNG.encodeMemeText(bottomText));
 
-					resolve(url);
+					var result = {
+						url: url,
+						opts: opts
+					};
+					resolve(result);
 				});
 			});
 		});
@@ -167,6 +185,25 @@ MemeNG.encodeMemeText = function (text) {
 		.replace(/#/g, '~h')
 		.replace(/\//g, '~s')
 		.replace(/"/g, "''");
+};
+
+MemeNG.downloadFile = function (url) {
+
+	// let memeHash = crypto.createHash('md5').update(url).digest("hex");
+	let memeHash = sh.unique(url);
+	let tmpFileURL = process.env.PROJECT_ROOT + '/tmp/' + memeHash + '.jpg';
+	// console.log(memeHash);
+	// TODO: Check if file has already been created instead of creating multiple files.
+	let file = fs.createWriteStream(tmpFileURL);
+	return new Promise(function(resolve, reject){
+		let request = https.get(url, function(response) {
+			response.pipe(file).on('close', function(){
+				// res.sendFile(tmpFileURL);
+				resolve({fileURL: tmpFileURL});
+			});
+		});
+	});
+
 };
 
 

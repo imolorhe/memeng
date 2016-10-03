@@ -57,9 +57,9 @@ router.post('/slack', (req, res) => {
 				request({
 					uri: responseUrl,
 					method: 'POST',
-					form: result
+					json: result
 				}, (err, response, body) => {
-					console.log('Request sent. ', response);
+					console.log('Request sent. ', body);
 					if(err){
 						console.log('Oops. Error: ', err.message);
 					}

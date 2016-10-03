@@ -136,8 +136,8 @@ MemeNG.prototype.createMeme = function (opts) {
 
 					// var url = 'https://memegen.link/api/templates/' + id + '/' + MemeNG.encodeMemeText(topText) + '/' + MemeNG.encodeMemeText(bottomText) + '';
 					url = url
-						.replace('<top>', MemeNG.encodeMemeText(topText))
-						.replace('<bottom>', MemeNG.encodeMemeText(bottomText));
+						.replace('<top>', MemeNG.encodeMemeText(topText) || 'top')
+						.replace('<bottom>', MemeNG.encodeMemeText(bottomText) || 'bottom');
 
 					var result = {
 						url: url,
@@ -175,6 +175,7 @@ MemeNG.prototype.authenticate = function (email, password) {
  * @returns {XML|string}
  */
 MemeNG.encodeMemeText = function (text) {
+	if(!text)return null;
 	return text
 		.toLowerCase()
 		.replace(/-/g, '--')

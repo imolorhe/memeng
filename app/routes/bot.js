@@ -70,6 +70,9 @@ router.post('/slack', (req, res) => {
 				res.send('Ouch. An error. ' + err.message);
 			});
 		}
+		else{
+			res.send('Sorry you provided incomplete information.');
+		}
 	}
 	else{
 		res.send('Oops. Something appears to have gone wrong.');

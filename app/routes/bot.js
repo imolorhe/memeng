@@ -16,6 +16,7 @@ let memeng = new MemeNG(config);
 
 router.post('/slack', (req, res) => {
 	// res.send(req.body);
+	console.log(req.body);
 
 	// Check the token with the one provided by Slack
 	if(req.body.token != config.slackToken){

@@ -1,6 +1,7 @@
 .env
 secrets/
 tmp/*
+!tmp/.gitkeep
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Example user template template

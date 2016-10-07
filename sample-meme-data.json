@@ -1,12 +1,10 @@
 {
-	"name": "Jack Tunde",
-	"description": "Two soldiers jack a man up like it is nothing",
-	"imageName": "jack-tunde.jpg",
+	"name": "Sleeping Police",
+	"description": "A police man sleeping on duty",
+	"imageName": "sleeping-police.jpg",
 	"tags": [
-		"soldiers",
-		"light",
-		"jack",
-		"tunde",
-		"gun"
+		"police",
+		"gun",
+		"sleeping"
 	]
 }

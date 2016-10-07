@@ -3,6 +3,10 @@
  */
 
 (function () {
+
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+
 	console.log('Script loaded.');
 
 	// Initialize Firebase
@@ -48,7 +52,7 @@
 
 	router.route('api/meme/:id', function (id) {
 		console.log('Checking for meme: ', id);
-		console.log(memeng.createMeme({id: id, top: 'Over here', bottom: 'Understood'}));
+		console.log(memeng.createMemeLink({id: id, top: 'Over here', bottom: 'Understood'}));
 	});
 
 

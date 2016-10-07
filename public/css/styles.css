@@ -264,3 +264,6 @@ img {
   text-align: center;
   padding: 10px;
   color: white; }
+
+.canvas {
+  height: 400px; }

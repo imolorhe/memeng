@@ -58,7 +58,7 @@ router.post('/slack', (req, res) => {
 			// res.send('Got it!');
 
 			let baseUrl = req.protocol + '://' + req.get('host');
-			let fullUrl = baseUrl + '/api/' + encodeURIComponent(memeID) + '/' + encodeURIComponent(topText) + '/' + encodeURIComponent(bottomText);
+			let fullUrl = baseUrl + '/api/meme/' + encodeURIComponent(memeID) + '/' + encodeURIComponent(topText) + '/' + encodeURIComponent(bottomText);
 			console.log(fullUrl);
 			var result = {
 				attachments: [

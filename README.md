@@ -1,5 +1,7 @@
 #MemeNG
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/imolorhe/memeng.svg)](https://greenkeeper.io/)
+
 An application for generating memes, from a web application, an API, and a slack bot.
 
 ###Version 1
